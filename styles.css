@@ -1,0 +1,16 @@
+/* September 4, 2026 - Jimmy Wong - Lab 03 */
+
+body {
+    font-family: Arial, sans-serif;
+    color: #222;
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+h1 {
+    color: #0f9488;
+}
+
+p {
+    color: red
+}
