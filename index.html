@@ -1,22 +1,74 @@
 <!DOCTYPE html>
-<!-- September 4, 2026 - Jimmy Wong - Lab 03-->
+<!-- September 11, 2026 - Jimmy Wong - Lab 04-->
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Jimmy Wong's First Web Page</title>
         <link rel="stylesheet" href="styles.css" >
     </head>
+
     <body>
-        <h1>Jimmy Wong's First Web Page</h1>
-        <p>This is my first HTML page for ITMD-541.</p>
-        <h2>About This Page</h2>
-        <ul>
-            <li>I want to learn more about JavaScript and PHP to connect databases.</li>
-            <li>I want to create a personal website by using JavaScript, APIs, and GitHub, and publish the website securely.</li>
-            <li>I want to improve my skills in web development and create a professional portfolio.</li>
-        </ul>
-        <a href="https://developer.mozilla.org/en-US/">Mozilla Developer Network (MDN) is a great resource for web development information.</a>
-        <img src="IMG_3020.JPEG" alt="Jimmy at Tokyo Tower in April 2026" width="300">
-        <p>This is a simple paragraph for demonstration purposes.</p>
+        <header>
+            <h1>Hello, Web!</h1>
+            <p>A student project for Web Development I</p>
+        </header>
+
+        <nav>
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+        </nav>
+    
+        <main>
+            <h1>Jimmy Wong's First Web Page</h1>
+            <p>This is my first HTML page for ITMD-541.</p>
+            <h2>About This Page</h2>
+            <ul>
+                <li>I want to learn more about JavaScript and PHP to connect databases.</li>
+                <li>I want to create a personal website by using JavaScript, APIs, and GitHub, and publish the website securely.</li>
+                <li>I want to improve my skills in web development and create a professional portfolio.</li>
+            </ul>
+            <a href="https://developer.mozilla.org/en-US/">Mozilla Developer Network (MDN) is a great resource for web development information.</a>
+            <img src="IMG_3020.JPEG" alt="Jimmy at Tokyo Tower in April 2026" width="300">
+            <p>This is a simple paragraph for demonstration purposes.</p>
+
+            <table>
+                <caption>My Course Schedule</caption>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Topic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>4</td>
+                        <td>Advanced HTML</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                <br>
+                <label for="referral">How did you find this page?</label>
+                <select id="referral" name="referral">
+                    <option value="search">Search Engine</option>
+                    <option value="social">Social Media</option>
+                    <option value="friend">A friend</option>
+                </select>
+                <br>
+                <button type="submit">Send</button>
+            </form>
+        </main>
+        
+        <footer><p>&copy; 2026 Jimmy Wong. All rights reserved.</p></footer>
     </body>
 </html>
