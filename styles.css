@@ -1,5 +1,4 @@
-/* September 4, 2026 - Jimmy Wong - Lab 03 */
-
+/* September 18, 2026 - Jimmy Wong - Lab 05 */
 body {
     font-family: Arial, sans-serif;
     color: #222;
@@ -12,5 +11,55 @@ h1 {
 }
 
 p {
-    color: red
+    color: red;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+header {
+    padding: 24px;
+    background-color: #0f9488;
+    color: white;
+    margin-bottom: 16px;
+}
+
+#main-nav {
+    background-color: #0d3b36;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+#main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+}
+
+#main-nav a:hover {
+    background-color: #14b8a6;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+thead {
+    background-color: #e6f7f4;
+}
+
+input, textarea, select {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    margin-bottom: 12px;
 }
