@@ -1,4 +1,21 @@
-/* September 18, 2026 - Jimmy Wong - Lab 05 */
+/* September 25, 2026 - Jimmy Wong - Lab 06 */
+
+/* Designed for Mobile friendly */
+@media (max-width: 600px) {
+    #main-nav {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Designed for Tablet friendly */
+@media (max-width: 900px) {
+    
+}
+
 body {
     font-family: Arial, sans-serif;
     color: #222;
@@ -6,9 +23,7 @@ body {
     margin: 40px auto;
 }
 
-/* h1 {
-    color: #0f9488;
-} */
+/* Designed for Desktop & General Coding */
 
 p {
     color: red;
@@ -23,6 +38,9 @@ header {
     background-color: #0f9488;
     color: white;
     margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 #main-nav {
@@ -36,6 +54,7 @@ header {
     color: white;
     text-decoration: none;
     padding: 12px;
+    transition: background-color 0.2s ease;
 }
 
 #main-nav a:hover {
@@ -62,4 +81,20 @@ input, textarea, select {
     max-width: 400px;
     padding: 8px;
     margin-bottom: 12px;
+}
+
+.image-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #dc2626;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    z-index: 5;
 }
