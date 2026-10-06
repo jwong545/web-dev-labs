@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- September 25, 2026 - Jimmy Wong - Lab 06-->
+<!-- October 4, 2026 - Jimmy Wong - Lab 07-->
 <html lang="en">
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
             <a href="https://developer.mozilla.org/en-US/">Mozilla Developer Network (MDN) is a great resource for web development information.</a>
             
             <div class="image-wrap">
-                <img src="IMG_3020.JPEG" alt="Jimmy at Tokyo Tower in April 2026" width="300">
+                <img src="IMG_3020.JPEG" alt="Jimmy at Tokyo Tower in April 2026" width="100%">
                 <span class="badge">New</span>
             </div>
 
@@ -48,53 +48,68 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Course Overview & Web Foundations Intro</td>
+                        <td data-label="Week">1</td>
+                        <td data-label="Topic">Course Overview & Web Foundations Intro</td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>HTML Anatomy & DevTools HTTP</td>
+                        <td data-label="Week">2</td>
+                        <td data-label="Topic">HTML Anatomy & DevTools HTTP</td>
                     </tr>
                     <tr>
-                        <td>3</td>
-                        <td>HTML CSS & GIT</td>
+                        <td data-label="Week">3</td>
+                        <td data-label="Topic">HTML CSS & GIT</td>
                     </tr>
                     <tr>
-                        <td>4</td>
-                        <td>Advanced HTML</td>
+                        <td data-label="Week">4</td>
+                        <td data-label="Topic">Advanced HTML</td>
                     </tr>
                     <tr>
-                        <td>5</td>
-                        <td>Hotspots & Advanced CSS</td>
+                        <td data-label="Week">5</td>
+                        <td data-label="Topic">Hotspots & Advanced CSS</td>
                     </tr>
                     <tr>
-                        <td>6</td>
-                        <td>Advanced CSS Part 2</td>
+                        <td data-label="Week">6</td>
+                        <td data-label="Topic">Advanced CSS Part 2</td>
+                    </tr>
+                    <tr>
+                        <td  data-label="Week">7</td>
+                        <td data-label="Topic">Introduction to JavaScript</td>
                     </tr>
                 </tbody>
             </table>
 
             <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <input type="text" id="zipcode" name="zipcode" placeholder="Zip Code" pattern="^\d{5}$" required>
-                <br>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message"></textarea>
-                <br>
-                <label for="referral">How did you find this page?</label>
-                <select id="referral" name="referral">
-                    <option value="search">Search Engine</option>
-                    <option value="social">Social Media</option>
-                    <option value="friend">A friend</option>
-                </select>
-                <br>
-                <button type="submit">Send</button>
+                <div class="field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="field">
+                    <label>ZIP code:</label>
+                    <input type="text" id="zipcode" name="zipcode" placeholder="ZIP Code" pattern="^\d{5}$" required>
+                </div>
+                <div class="field">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+                <div class="field">
+                    <label for="referral">How did you find this page?</label>
+                    <select id="referral" name="referral">
+                        <option value="search">Search Engine</option>
+                        <option value="social">Social Media</option>
+                        <option value="friend">A friend</option>
+                    </select>
+                </div>
+                <div class="field"><button type="submit">Send</button></div>
             </form>
+
+            <button id="like-btn">Like this page!</button>
+            <p id="like-count">0 likes</p>
+
+            <button id="theme-btn">Toggle Dark Mode</button>
         </main>
         
         <script src="script.js"></script>

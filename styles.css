@@ -1,21 +1,4 @@
 /* September 25, 2026 - Jimmy Wong - Lab 06 */
-
-/* Designed for Mobile friendly */
-@media (max-width: 600px) {
-    #main-nav {
-        flex-direction: column;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-}
-
-/* Designed for Tablet friendly */
-@media (max-width: 900px) {
-    
-}
-
 body {
     font-family: Arial, sans-serif;
     color: #222;
@@ -23,15 +6,9 @@ body {
     margin: 40px auto;
 }
 
-/* Designed for Desktop & General Coding */
+p { color: red; }
 
-p {
-    color: red;
-}
-
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 header {
     padding: 24px;
@@ -46,6 +23,7 @@ header {
 #main-nav {
     background-color: #0d3b36;
     display: flex;
+    flex-direction: column; /* added for mobile-first */
     gap: 8px;
     justify-content: center;
 }
@@ -57,9 +35,7 @@ header {
     transition: background-color 0.2s ease;
 }
 
-#main-nav a:hover {
-    background-color: #14b8a6;
-}
+#main-nav a:hover { background-color: #14b8a6; }
 
 table {
     border-collapse: collapse;
@@ -69,11 +45,10 @@ table {
 th, td {
     padding: 10px;
     border: 1px solid #ccc;
+    text-align: left;
 }
 
-thead {
-    background-color: #e6f7f4;
-}
+thead { background-color: #e6f7f4; }
 
 input, textarea, select {
     display: block;
@@ -97,4 +72,62 @@ input, textarea, select {
     padding: 2px 8px;
     border-radius: 4px;
     z-index: 5;
+}
+
+form {
+    display: flex;
+    gap: 1rem;
+}
+
+.field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Designed for Mobile-first */
+@media (max-width: 600px) { 
+    h1 { font-size: 1.5em; }
+}
+
+/* Mobile-first equivalent */
+@media (min-width: 601px) {
+    #main-nav { flex-direction: row; /* this convert to single row for non-mobile-first */ }
+}
+
+/* Designed for Tablet friendly */
+@media (max-width: 900px) { 
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    td {
+        position: relative; /* volunteers itself as the anchor point */
+        padding-left: 50%;
+        border-bottom: 1px solid #eee;
+    }
+    td::before {
+        content: attr(data-label);
+        position: absolute; /* anchor to whatever the nearest positioned ancestor is */
+        left: 10px;
+        font-weight: bold;
+    }
+
+    form {
+        flex-direction: column;
+    }
+}
+
+body.dark {
+    background-color: #111827;
+    color: #f1f5f9;
 }
