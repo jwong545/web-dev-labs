@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- October 4, 2026 - Jimmy Wong - Lab 07-->
+<!-- October 12, 2026 - Jimmy Wong - Lab 08 -->
 <html lang="en">
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,11 +23,7 @@
             <h1>Jimmy Wong's First Web Page</h1>
             <p>This is my first HTML page for ITMD-541.</p>
             <h2>About This Page</h2>
-            <ul>
-                <li>I want to learn more about JavaScript and PHP to connect databases.</li>
-                <li>I want to create a personal website by using JavaScript, APIs, and GitHub, and publish the website securely.</li>
-                <li>I want to improve my skills in web development and create a professional portfolio.</li>
-            </ul>
+            <ul id="goals-list"></ul>
             
             <a href="https://developer.mozilla.org/en-US/">Mozilla Developer Network (MDN) is a great resource for web development information.</a>
             
@@ -75,6 +71,14 @@
                         <td  data-label="Week">7</td>
                         <td data-label="Topic">Introduction to JavaScript</td>
                     </tr>
+                    <tr>
+                        <td data-label="Week">8</td>
+                        <td data-label="Topic">Advanced JavaScript</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Week">9</td>
+                        <td data-label="Topic">Midterm Exam</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -108,6 +112,8 @@
 
             <button id="like-btn">Like this page!</button>
             <p id="like-count">0 likes</p>
+
+            <p id="like-message"></p>
 
             <button id="theme-btn">Toggle Dark Mode</button>
         </main>
