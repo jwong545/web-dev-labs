@@ -27,41 +27,40 @@ themeBtn.addEventListener('click', () => {
 const likeBtn = document.querySelector('#like-btn');
 const likeCount = document.querySelector('#like-count');
 const likeMessage = document.querySelector('#like-message');
-let likes = 0;
 
-function incrementLikes() {
-    likes++;
-    updateLikeDisplay();
-}
-function updateLikeDisplay() {
-    likeCount.textContent = `${likes} likes`;
-}
-if (likeBtn) {
-    likeBtn.addEventListener('click', incrementLikes);
-} else {
-    console.warn('Like button not found in the DOM.');
-}
-function updateLikeDisplay() {
-    likeCount.textContent = `${likes} likes`;
-    if (likes >= 10) {
+function updateLikeDisplay(count) {
+    likeCount.textContent = `${count} likes`;
+    if (count >= 10) {
         likeMessage.textContent = "Wow, thanks for all the likes!";
-    } else if (likes >= 5) {
+    } else if (count >= 5) {
         likeMessage.textContent = "Glad you like it!";
     } else {
         likeMessage.textContent = "";
     }
 }
+function createLikeCounter() {
+    let likes = 0;
 
-const likeCounter = {
-    likes: 0,
-    increment() {
-        this.likes++;
-        this.render();
-    },
-    render() {
-        likeCount.textContent = `${this.likes} likes`;
+    return {
+        increment() {
+            likes++;
+            updateLikeDisplay(likes);
+        },
+        getLikes() {
+            return likes;
+        }
     }
-};
+}
+
+const counter = createLikeCounter();
+
+if (likeBtn) {
+    likeBtn.addEventListener('click', () => {
+        counter.increment();
+    });
+} else {
+    console.warn('Like button not found in the DOM.');
+}
 
 // Displaying goals in a list
 const goals = ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "APIs", "GitHub"];
