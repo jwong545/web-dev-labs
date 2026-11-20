@@ -1,4 +1,4 @@
-// Jimmy Wong - November 17, 2026 - Lab 12
+// Jimmy Wong - November 20, 2026 - Lab 12
 // script.js converted to TypeScript, script.ts
 
 // Zip code validation
@@ -17,7 +17,7 @@ labsCompleted = labsCompleted + 1; // Increment labsCompleted by 1
 console.log(`Hello, my name is ${studentName}. I have completed ${labsCompleted} labs.`);
 
 // Theme toggle functionality
-const themeBtn = document.querySelector('#theme-btn');
+const themeBtn = document.querySelector<HTMLButtonElement>('#theme-btn');
 type Theme = 'light' | 'dark';
 
 function getStoredTheme(): Theme {
@@ -26,34 +26,38 @@ function getStoredTheme(): Theme {
 
 function applyStoredTheme() {
     if (getStoredTheme() === "dark") {
-        document.body.classList.add("dark-mode");
+        document.body.classList.add("dark");
     }
 }
 
 themeBtn!.addEventListener('click', function() {
     document.body.classList.toggle('dark');
-    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+    const currentTheme: Theme = document.body.classList.contains('dark') ? 'dark' : 'light';
     localStorage.setItem('theme', currentTheme);
 });
-if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); }
+// if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); }
+applyStoredTheme();
 
 // Like button functionality
 const likeBtn = document.querySelector<HTMLButtonElement>('#like-btn');
 const likeCount = document.querySelector<HTMLParagraphElement>('#like-count');
 const likeMessage = document.querySelector('#like-message');
 
-function updateLikeDisplay(count : number): void {
-    likeCount!.textContent = `${count} likes`;
-    if (count >= 10) { likeMessage!.textContent = "Wow, thanks for all the likes!"; }
-    else if (count >= 5) { likeMessage!.textContent = "Glad you like it!"; }
-    else { likeMessage!.textContent = ""; }
-}
-
 function formatLikes(value: number | string): string {
     if (typeof value === 'string') {
         return `${parseInt(value, 10)} likes`;
     }
     return `${value} likes`;
+}
+
+function updateLikeDisplay(count : number): void {
+    if (likeCount) {
+        likeCount.textContent = formatLikes(count);
+    }
+
+    if (count >= 10) { likeMessage!.textContent = "Wow, thanks for all the likes!"; }
+    else if (count >= 5) { likeMessage!.textContent = "Glad you like it!"; }
+    else { likeMessage!.textContent = ""; }
 }
 
 const LikeCounter = {
@@ -66,7 +70,7 @@ const LikeCounter = {
     },
     render(): void { 
         updateLikeDisplay(this.likes);
-        likeCount!.textContent = `${this.likes} likes`;
+        likeCount!.textContent = formatLikes(this.likes);
     }
 };
 
@@ -163,8 +167,11 @@ function demoFixedLocation(): void {
     };
     // fixed.latitude = 40.7128; // Error: Cannot assign to 'latitude' because it is a read-only property.
 
-    console.log("FixedLocation value (readonly, all three properties guaranteed present): ", fixed);
+    console.log("FixedLocation value (readonly, all three properties guaranteed present): ", fixed.latitude, fixed.longitude, fixed.accuracy);
 }
+
+demoPartialLocation();
+demoFixedLocation();
 
 locationBtn!.addEventListener('click', function() {
     if (!(navigator.geolocation)) {
@@ -176,9 +183,12 @@ locationBtn!.addEventListener('click', function() {
         const here: UserLocation = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy
+            accuracy: position.coords.accuracy,
         };
-        locationDisplay!.textContent = `Latitude: ${here.latitude.toFixed(2)}, Longitude: ${here.longitude.toFixed(2)}.`;
+
+        const accuracyInfo = typeof here.accuracy === "number" ? ` (Accuracy: ${here.accuracy} meters)` : "";
+
+        locationDisplay!.textContent = `Latitude: ${here.latitude.toFixed(2)}, Longitude: ${here.longitude.toFixed(2)}${accuracyInfo}.`;
     }, function(error) {
         locationDisplay!.textContent = "Unable to retrieve your location.";
         console.warn(`Error: ${error.message}`);
@@ -205,7 +215,7 @@ function loadFromStorage<T>(key: string): T | null {
     return raw ? JSON.parse(raw) : null;
 }
 
-saveToStorage<number>("likes", 5);
+saveToStorage<number>("likes", LikeCounter.likes);
 const savedLikes = loadFromStorage<number>("likes");
 console.log(`Saved likes: ${savedLikes}`);
 

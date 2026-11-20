@@ -1,5 +1,5 @@
 "use strict";
-// Jimmy Wong - November 17, 2026 - Lab 12
+// Jimmy Wong - November 20, 2026 - Lab 12
 // script.js converted to TypeScript, script.ts
 // Zip code validation
 const zipInput = document.getElementById('zipcode');
@@ -21,7 +21,7 @@ function getStoredTheme() {
 }
 function applyStoredTheme() {
     if (getStoredTheme() === "dark") {
-        document.body.classList.add("dark-mode");
+        document.body.classList.add("dark");
     }
 }
 themeBtn.addEventListener('click', function () {
@@ -29,15 +29,22 @@ themeBtn.addEventListener('click', function () {
     const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
     localStorage.setItem('theme', currentTheme);
 });
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-}
+// if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); }
+applyStoredTheme();
 // Like button functionality
 const likeBtn = document.querySelector('#like-btn');
 const likeCount = document.querySelector('#like-count');
 const likeMessage = document.querySelector('#like-message');
+function formatLikes(value) {
+    if (typeof value === 'string') {
+        return `${parseInt(value, 10)} likes`;
+    }
+    return `${value} likes`;
+}
 function updateLikeDisplay(count) {
-    likeCount.textContent = `${count} likes`;
+    if (likeCount) {
+        likeCount.textContent = formatLikes(count);
+    }
     if (count >= 10) {
         likeMessage.textContent = "Wow, thanks for all the likes!";
     }
@@ -47,12 +54,6 @@ function updateLikeDisplay(count) {
     else {
         likeMessage.textContent = "";
     }
-}
-function formatLikes(value) {
-    if (typeof value === 'string') {
-        return `${parseInt(value, 10)} likes`;
-    }
-    return `${value} likes`;
 }
 const LikeCounter = {
     likes: Number(localStorage.getItem('likes')) || 0,
@@ -64,7 +65,7 @@ const LikeCounter = {
     },
     render() {
         updateLikeDisplay(this.likes);
-        likeCount.textContent = `${this.likes} likes`;
+        likeCount.textContent = formatLikes(this.likes);
     }
 };
 if (likeBtn && likeCount) {
@@ -140,8 +141,10 @@ function demoFixedLocation() {
         accuracy: 5
     };
     // fixed.latitude = 40.7128; // Error: Cannot assign to 'latitude' because it is a read-only property.
-    console.log("FixedLocation value (readonly, all three properties guaranteed present): ", fixed);
+    console.log("FixedLocation value (readonly, all three properties guaranteed present): ", fixed.latitude, fixed.longitude, fixed.accuracy);
 }
+demoPartialLocation();
+demoFixedLocation();
 locationBtn.addEventListener('click', function () {
     if (!(navigator.geolocation)) {
         locationDisplay.textContent = "Geolocation is not supported by your browser.";
@@ -152,9 +155,10 @@ locationBtn.addEventListener('click', function () {
         const here = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy
+            accuracy: position.coords.accuracy,
         };
-        locationDisplay.textContent = `Latitude: ${here.latitude.toFixed(2)}, Longitude: ${here.longitude.toFixed(2)}.`;
+        const accuracyInfo = typeof here.accuracy === "number" ? ` (Accuracy: ${here.accuracy} meters)` : "";
+        locationDisplay.textContent = `Latitude: ${here.latitude.toFixed(2)}, Longitude: ${here.longitude.toFixed(2)}${accuracyInfo}.`;
     }, function (error) {
         locationDisplay.textContent = "Unable to retrieve your location.";
         console.warn(`Error: ${error.message}`);
@@ -177,7 +181,7 @@ function loadFromStorage(key) {
     const raw = localStorage.getItem(key);
     return raw ? JSON.parse(raw) : null;
 }
-saveToStorage("likes", 5);
+saveToStorage("likes", LikeCounter.likes);
 const savedLikes = loadFromStorage("likes");
 console.log(`Saved likes: ${savedLikes}`);
 const sampleFact = { fact: "Cats have five toes on their front paws, but only four toes on their back paws.", length: 85 };
