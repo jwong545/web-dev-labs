@@ -1,4 +1,4 @@
-// Jimmy Wong - November 3, 2026 - Lab 11
+// Jimmy Wong - November 17, 2026 - Lab 12
 // script.js converted to TypeScript, script.ts
 
 // Zip code validation
@@ -11,13 +11,24 @@ zipInput.addEventListener('input', () => {
 
 // Displaying name and labs completed
 const studentName = "Jimmy Wong";
-let labsCompleted: number = 10;
+let labsCompleted: number = 11;
 let isEnrolled: boolean = false;
 labsCompleted = labsCompleted + 1; // Increment labsCompleted by 1
 console.log(`Hello, my name is ${studentName}. I have completed ${labsCompleted} labs.`);
 
 // Theme toggle functionality
 const themeBtn = document.querySelector('#theme-btn');
+type Theme = 'light' | 'dark';
+
+function getStoredTheme(): Theme {
+    return (localStorage.getItem("theme") === "dark" ? "dark" : "light");
+}
+
+function applyStoredTheme() {
+    if (getStoredTheme() === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+}
 
 themeBtn!.addEventListener('click', function() {
     document.body.classList.toggle('dark');
@@ -27,8 +38,8 @@ themeBtn!.addEventListener('click', function() {
 if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); }
 
 // Like button functionality
-const likeBtn = document.querySelector('#like-btn');
-const likeCount = document.querySelector('#like-count');
+const likeBtn = document.querySelector<HTMLButtonElement>('#like-btn');
+const likeCount = document.querySelector<HTMLParagraphElement>('#like-count');
 const likeMessage = document.querySelector('#like-message');
 
 function updateLikeDisplay(count : number): void {
@@ -36,6 +47,13 @@ function updateLikeDisplay(count : number): void {
     if (count >= 10) { likeMessage!.textContent = "Wow, thanks for all the likes!"; }
     else if (count >= 5) { likeMessage!.textContent = "Glad you like it!"; }
     else { likeMessage!.textContent = ""; }
+}
+
+function formatLikes(value: number | string): string {
+    if (typeof value === 'string') {
+        return `${parseInt(value, 10)} likes`;
+    }
+    return `${value} likes`;
 }
 
 const LikeCounter = {
@@ -52,10 +70,18 @@ const LikeCounter = {
     }
 };
 
-LikeCounter.render();
+if (likeBtn && likeCount) {
+    likeBtn.addEventListener('click', function() {
+        LikeCounter.increment();
+    });
+} else {
+    console.warn('Like button or count element missing from the page.');
+}
 
-if (likeBtn) { likeBtn!.addEventListener('click', () => { LikeCounter.increment(); }); }
-else { console.warn('Like button not found in the DOM.'); }
+console.log(formatLikes(5)); // Outputs: "5 likes"
+console.log(formatLikes("10")); // Outputs: "10 likes"
+
+LikeCounter.render();
 
 // Displaying goals in a list
 const goals: string[] = ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "APIs", "GitHub"];
@@ -94,7 +120,7 @@ interface CatFact {
     length: number;
 }
 
-async function loadFact() {
+async function loadFact(): Promise<void> {
     factDisplay!.textContent = "Loading...";
     try {
         const response = await fetch(url);
@@ -114,6 +140,32 @@ else { console.warn('Fact button not found in the DOM.'); }
 const locationBtn = document.querySelector('#location-btn');
 const locationDisplay = document.querySelector('#location-display');
 
+interface UserLocation {
+    latitude: number;
+    longitude: number;
+    accuracy?: number;
+}
+
+type PartialLocation = Partial<UserLocation>;
+type FixedLocation = Readonly<Required<UserLocation>>;
+
+function demoPartialLocation(): void {
+    const empty: PartialLocation = {};
+
+    console.log("PartialLocation with no properties at all is valid: ", empty);
+}
+
+function demoFixedLocation(): void {
+    const fixed: FixedLocation = {
+        latitude: 37.7749,
+        longitude: -122.4194,
+        accuracy: 5
+    };
+    // fixed.latitude = 40.7128; // Error: Cannot assign to 'latitude' because it is a read-only property.
+
+    console.log("FixedLocation value (readonly, all three properties guaranteed present): ", fixed);
+}
+
 locationBtn!.addEventListener('click', function() {
     if (!(navigator.geolocation)) {
         locationDisplay!.textContent = "Geolocation is not supported by your browser.";
@@ -121,9 +173,12 @@ locationBtn!.addEventListener('click', function() {
     }
     locationDisplay!.textContent = "Locating…";
     navigator.geolocation.getCurrentPosition(function(position) {
-        const latitude = position.coords.latitude.toFixed(2);
-        const longitude = position.coords.longitude.toFixed(2);
-        locationDisplay!.textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+        const here: UserLocation = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+        };
+        locationDisplay!.textContent = `Latitude: ${here.latitude.toFixed(2)}, Longitude: ${here.longitude.toFixed(2)}.`;
     }, function(error) {
         locationDisplay!.textContent = "Unable to retrieve your location.";
         console.warn(`Error: ${error.message}`);

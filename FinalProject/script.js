@@ -238,6 +238,9 @@ const checkoutMessage = document.querySelector("#checkout-message");
    FETCHING REAL PRODUCT DATA — already working, read this to understand it
    ========================================================================= */
 async function loadProducts() {
+  // Graduate Extension: a message in console if data fetched from api
+  console.count("--> DATA FETCHED FROM API");
+
   // Step 1: tell the visitor something is happening, and clear old content.
   statusMessage.textContent = "Loading products…";
   productGrid.innerHTML = "";
@@ -336,6 +339,9 @@ function getVisibleProducts() {
    RENDERING PRODUCTS — already working, read this to understand it
    ========================================================================= */
 function renderProducts(list) {
+  // Graduate Extension: a message in console
+  console.count("--> PRODUCT GRID RENDERED");
+
   productGrid.innerHTML = "";
 
   if (list.length === 0) {
